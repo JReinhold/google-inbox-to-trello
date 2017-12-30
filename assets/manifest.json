@@ -1,24 +1,22 @@
 {
-  "manifest_version": 2,
+	"manifest_version": 2,
 
-  "name": "Chrome Extension TypeScript Starter",
-  "description": "Chrome Extension, TypeScript, Visual Studio Code",
-  "version": "1.0",
+	"name": "Google Inbox to Trello",
+	"description": "Quickly create Trello cards from mails in Google Inbox",
+	"version": "1.0",
 
-  "icons": {
-    "16": "icon.png",
-    "48": "icon.png",
-   "128": "icon.png"
-  },
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
 
-  "content_scripts": [
-      {
-          "matches": ["<all_urls>"],
-          "js": ["js/content_script.js"]
-      }
-  ],
+	"content_scripts": [
+		{
+			"matches": ["https://mail.google.com/*", "https://inbox.google.com/*"],
+			"js": ["lib/inboxsdk.js", "js/content_script.js"]
+		}
+	],
 
-  "background": {
-    "scripts": ["js/background.js"]
-  }
+	"web_accessible_resources": ["icon.png"]
 }

@@ -1,9 +1,8 @@
-import { log } from './util';
+import { createToolbarButton } from './toolbar-button';
 
-/* 
- * Everytime the content_script is loaded (aka every new tab is loaded)
- * We ask the background it's guess about who is the chosen one in Star Wars
- */
-chrome.runtime.sendMessage({ question: 'Who is the chosen one?' }, response => {
-	log(response);
-});
+// initialize everything
+(async function() {
+	// initialize the SDK
+	const sdk = await InboxSDK.load(2, 'sdk_mail-to-trello_a09aea7b41');
+	sdk.Toolbars.registerThreadButton(createToolbarButton());
+})();

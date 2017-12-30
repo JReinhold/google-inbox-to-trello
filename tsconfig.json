@@ -4,7 +4,6 @@
 		"target": "es5",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-		"noImplicitAny": false,
 		"sourceMap": true,
 		"rootDir": "src",
 		"outDir": "dist/js",
@@ -12,7 +11,8 @@
 		"lib": ["es6", "dom"],
 		"allowJs": true,
 		"moduleResolution": "node",
-		"strict": true
+		"strict": true,
+		"noImplicitAny": true
 	},
 	"include": [
 		"./src/**/*"
