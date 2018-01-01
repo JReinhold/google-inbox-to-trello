@@ -1,3 +1,5 @@
+import { createTrelloCard } from './trello-integration';
+
 export const createToolbarButton = () => {
 	return {
 		title: 'Add to Trello',
@@ -13,7 +15,8 @@ export const createToolbarButton = () => {
 			// TODO: What about position = 'LIST'?
 
 			const threadId = await threadElement.getThreadIDAsync();
-			console.log('https://mail.google.com/mail/#all/' + threadId);
+			const msgSubject = threadElement.getSubject();
+			createTrelloCard(msgSubject, undefined, 'https://mail.google.com/mail/#all/' + threadId);
 		},
 	};
 };
