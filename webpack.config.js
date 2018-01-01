@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
 	entry: {
 		content_script: path.join(__dirname, 'src/content_script.ts'),
+		settings: path.join(__dirname, 'src/settings/index.ts'),
 	},
 	output: {
 		path: path.join(__dirname, 'dist/'),
@@ -19,7 +20,7 @@ module.exports = {
 			},
 		],
 	},
-	plugins: [new CopyWebpackPlugin([{ from: 'assets/' }, {from: 'lib/', to: 'lib/'}])],
+	plugins: [new CopyWebpackPlugin([{ from: 'assets/' }, {from: 'lib/', to: 'lib/'}, {from: 'src/settings/index.html', to: 'settings.html'}])],
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js'],
 	},

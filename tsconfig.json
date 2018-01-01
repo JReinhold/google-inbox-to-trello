@@ -12,7 +12,8 @@
 		"allowJs": true,
 		"moduleResolution": "node",
 		"strict": true,
-		"noImplicitAny": true
+		"noImplicitAny": true,
+		"typeRoots": ["node_modules/@types", "node_modules/web-ext-types"]
 	},
 	"include": [
 		"./src/**/*"
