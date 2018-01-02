@@ -1,3 +1,4 @@
+// save options to synchronized extension storage
 function saveOptions(e: Event) {
 	e.preventDefault();
 
@@ -10,6 +11,7 @@ function saveOptions(e: Event) {
 	});
 }
 
+// inserts values from extension storage into the options view
 function restoreOptionsToView() {
 	function setCurrentOptions(result: any) {
 		(<HTMLInputElement>document.querySelector('#defaultBoard')).value = result.defaultBoard || '';

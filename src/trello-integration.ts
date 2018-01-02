@@ -8,6 +8,8 @@ chrome.storage.sync.get(items => {
 	defaultList = items.defaultList;
 });
 
+// triggers a pop up, that opens a specific URL to create a new Trello card.
+// see https://developers.trello.com/v1.0/docs/clientjs#section-add-card
 export function createTrelloCard(title?: string, description?: string, attachment?: string) {
 	const urlBase = 'https://trello.com/add-card?';
 	const titlePart = title ? '&name=' + title : '';
@@ -16,5 +18,6 @@ export function createTrelloCard(title?: string, description?: string, attachmen
 	const listPart = defaultList ? '&idList=' + defaultList : '';
 
 	const url = urlBase + titlePart + linkPart + boardPart + listPart;
+	// send message to extension background process
 	chrome.runtime.sendMessage({ openPopup: url });
 }

@@ -1,18 +1,17 @@
 import { createTrelloCard } from './trello-integration';
 
+// create a button on the toolbar, with a New Trello Card action
 export const createToolbarButton = () => {
 	return {
 		title: 'Add to Trello',
-		iconUrl: chrome.runtime.getURL('icon.png'),
+		iconUrl: chrome.runtime.getURL('trello-mark-blue.svg'),
 		onClick: async (event: any) => {
-			console.log('button pressed', event);
-			let threadElement;
-			if (event.position === 'ROW') {
-				threadElement = event.selectedThreadRowViews[0];
-			} else if (event.position === 'THREAD') {
+			let threadElement, messageView;
+			if (event.position === 'THREAD') {
 				threadElement = event.selectedThreadViews[0];
+			} else {
+				threadElement = event.selectedThreadRowViews[0];
 			}
-			// TODO: What about position = 'LIST'?
 
 			const threadId = await threadElement.getThreadIDAsync();
 			const msgSubject = threadElement.getSubject();
