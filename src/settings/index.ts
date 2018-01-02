@@ -1,21 +1,23 @@
 function saveOptions(e: any) {
 	e.preventDefault();
 	chrome.storage.local.set({
-		color: (document.querySelector('#color') as any).value,
+		defaultBoard: (document.querySelector('#boardId') as any).value,
+		defaultList: (document.querySelector('#listId') as any).value,
 	});
 }
 
-function restoreOptions() {
+function restoreOptionsToView() {
 	function setCurrentChoice(result: any) {
-		(document.querySelector('#color') as any).value = result.color || 'blue';
+		(document.querySelector('#boardId') as any).value = result.defaultBoard || '';
+		(document.querySelector('#listId') as any).value = result.defaultList || '';
 	}
 
 	function onError(error: any) {
 		console.log(`Error: ${error}`);
 	}
 
-	chrome.storage.local.get('color' as any, setCurrentChoice);
+	chrome.storage.local.get(setCurrentChoice);
 }
 
-document.addEventListener('DOMContentLoaded', restoreOptions);
+document.addEventListener('DOMContentLoaded', restoreOptionsToView);
 (document.querySelector('form') as any).addEventListener('submit', saveOptions);
