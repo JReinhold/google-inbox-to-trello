@@ -15,7 +15,14 @@ export const createToolbarButton = () => {
 
 			const threadId = await threadElement.getThreadIDAsync();
 			const msgSubject = threadElement.getSubject();
-			createTrelloCard(msgSubject, undefined, 'https://mail.google.com/mail/#all/' + threadId);
+
+			// get current user number from URL, it is just after the /u/ part
+			const userNum = location.href.split('/u/', 2)[1].charAt(0);
+			createTrelloCard(
+				msgSubject,
+				undefined,
+				'https://mail.google.com/mail/u/' + userNum + '/#all/' + threadId,
+			);
 		},
 	};
 };
