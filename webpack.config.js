@@ -6,6 +6,7 @@ module.exports = {
 	entry: {
 		content_script: path.join(__dirname, 'src/content_script.ts'),
 		settings: path.join(__dirname, 'src/settings/index.ts'),
+		background: path.join(__dirname, 'src/background.ts'),
 	},
 	output: {
 		path: path.join(__dirname, 'dist/'),

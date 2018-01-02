@@ -1,7 +1,9 @@
 import { trelloApiKey } from './secrets';
 
 export function createTrelloCard(title?: string, description?: string, attachment?: string) {
-	console.log('title', title);
-	console.log('attachment', attachment);
-	console.log('api key', trelloApiKey);
+	const urlBase = 'https://trello.com/add-card?';
+	const titlePart = title ? '&name=' + title : '';
+	const linkPart = attachment ? '&url=' + encodeURIComponent(attachment) : '';
+	const url = `${urlBase}${titlePart}${linkPart}&idBoard=SOMEID&idList=SOMEID`;
+	chrome.runtime.sendMessage({ openPopup: url });
 }
