@@ -12,7 +12,7 @@ chrome.storage.sync.get(items => {
 // see https://developers.trello.com/v1.0/docs/clientjs#section-add-card
 export function createTrelloCard(title?: string, description?: string, attachment?: string) {
 	const urlBase = 'https://trello.com/add-card?';
-	const titlePart = title ? '&name=' + title : '';
+	const titlePart = title ? '&name=' + encodeURIComponent(title) : '';
 	const linkPart = attachment ? '&url=' + encodeURIComponent(attachment) : '';
 	const boardPart = defaultBoard ? '&idBoard=' + defaultBoard : '';
 	const listPart = defaultList ? '&idList=' + defaultList : '';
