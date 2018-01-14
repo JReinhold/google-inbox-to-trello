@@ -2,13 +2,16 @@
 	"manifest_version": 2,
 
 	"name": "Google Inbox to Trello",
-	"description": "Quickly create Trello cards from mails in Google Inbox",
+	"description": "Quickly create Trello cards from mails in Google Inbox and Gmail",
 	"version": "1.0",
 
 	"icons": {
-		"16": "icon.png",
-		"48": "icon.png",
-		"128": "icon.png"
+		"16": "icon-16.png",
+		"32": "icon-32.png",
+		"48": "icon-48.png",
+		"64": "icon-64.png",
+		"96": "icon-96.png",
+		"128": "icon-128.png"
 	},
 
 	"content_scripts": [
@@ -17,7 +20,6 @@
 			"js": ["lib/inboxsdk.js", "js/content_script.js"]
 		}
 	],
-
 
 	"background": {
 		"scripts": ["js/background.js"]
@@ -30,5 +32,5 @@
 
 	"permissions": ["storage", "tabs"],
 
-	"web_accessible_resources": ["icon.png", "trello-mark-blue.svg"]
+	"web_accessible_resources": ["trello-mark-blue.svg"]
 }
