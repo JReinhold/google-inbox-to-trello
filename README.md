@@ -1,7 +1,7 @@
 # Inbox to Trello Extension
 Extension that enables you to quickly create a new Trello card from a mail or thread in Google Inbox and Gmail.
 
-![Demo GIF](images/demo.gif)
+![Demo GIF](/images/demo.gif)
 
 ## Purpose
 
