@@ -9,7 +9,7 @@ module.exports = {
 		background: path.join(__dirname, 'src/background.ts'),
 	},
 	output: {
-		path: path.join(__dirname, 'dist/'),
+		path: path.join(__dirname, 'build/'),
 		filename: 'js/[name].js',
 	},
 	module: {

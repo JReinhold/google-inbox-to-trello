@@ -1,6 +1,8 @@
 # Inbox to Trello Extension
 Extension that enables you to quickly create a new Trello card from a mail or thread in Google Inbox and Gmail.
 
+![Demo GIF](images/demo.gif)
+
 ## Purpose
 
 The purpose of this chrome extension is to make it easy to create Trello cards from e-mails. The Trello Card will contain a link back to the original mail, with the subject as the title.
@@ -19,8 +21,8 @@ To install the extension directly from source do:
 1. Have [Node.js](https://github.com/nodejs/node) and optionally [Yarn](https://github.com/yarnpkg/yarn) installed
 2. Clone this repo
 3. Run `yarn install` or `npm install`
-4. Run `yarn build` or `npm run build`, which builds to a `dist` folder in the project root.
-5. Go to [chrome://extensions](chrome://extensions), Click *Load unpacked extension...* and point it to the previously created `dist` folder.
+4. Run `yarn build` or `npm run build`, which builds to a `build` folder in the project root.
+5. Go to [chrome://extensions](chrome://extensions), Click *Load unpacked extension...* and point it to the previously created `build` folder.
 6. Submit awesome PRs.
 
 ## Usage

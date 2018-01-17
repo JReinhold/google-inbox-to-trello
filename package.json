@@ -4,8 +4,8 @@
 	"description": "WebExtension to create Trello cards from mails in Google Inbox",
 	"main": "index.js",
 	"scripts": {
-		"clean-dist": "rm -rf ./dist/* && mkdir -p ./dist",
-		"prebuild": "yarn clean-dist",
+		"clean-build": "rm -rf ./build/* && mkdir -p ./build",
+		"prebuild": "yarn clean-build",
 		"build": "webpack",
 		"dev": "webpack -w",
 		"lint": "tslint 'src/**/*.{ts,tsx}'",

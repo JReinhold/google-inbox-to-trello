@@ -2,6 +2,7 @@
 	"manifest_version": 2,
 
 	"name": "Google Inbox to Trello",
+	"short_name": "Inbox to Trello",
 	"description": "Quickly create Trello cards from mails in Google Inbox and Gmail",
 	"version": "1.0",
 

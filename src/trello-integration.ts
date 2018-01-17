@@ -1,5 +1,3 @@
-import { trelloApiKey } from './secrets';
-
 let defaultBoard: string | undefined;
 let defaultList: string | undefined;
 
