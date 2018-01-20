@@ -33,7 +33,3 @@ export function buildTrelloButton(): HTMLElement {
 	rootElem.classList.add('du', 'action', 'actionIcon', 'ew');
 	return rootElem;
 }
-
-export function renderTrelloButton() {
-	attachElemToAll(buildTrelloButton(), 'ul.iK', { prepend: true, once: 'trelloAttached' });
-}

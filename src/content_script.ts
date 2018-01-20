@@ -1,41 +1,19 @@
 import { createToolbarButton } from './toolbar-button';
-import { attachElemToAll, buildTrelloButton, renderTrelloButton } from './utils';
+import { attachElemToAll, buildTrelloButton } from './utils';
 require('arrive');
 
-renderTrelloButton();
+const ITEM_ACTIONS_SELECTOR = 'ul.iK:not([aria-label="Bundle actions"])';
 
-const mutationHandler: MutationCallback = mutations => {
-	mutations.forEach(mutation => {
-		const { addedNodes, removedNodes, target } = mutation;
-		// a message is opened
-		if (addedNodes.length > 0 && addedNodes[0].nodeName === 'DIV') {
-			renderTrelloButton();
-		}
-		// a message is closed
-		if (removedNodes.length > 0 && removedNodes[0].nodeName === 'DIV') {
-			renderTrelloButton();
-		}
-		//navigation between menus
-		if (target === headerElement) {
-			renderTrelloButton();
-		}
-	});
-};
+// add Trello button on first render
+attachElemToAll(buildTrelloButton(), ITEM_ACTIONS_SELECTOR, {
+	prepend: true,
+	once: 'trelloAttached',
+});
 
-(document.querySelector('.tE') as any).arrive(
-	'ul.iK:not(.trelloAttached):not(.nL)',
-	(newElem: any) => {
-		console.log('created', newElem);
-	},
-);
-
-const mutationOptions = {
-	childList: true,
-	subTree: true,
-};
-// observe when header element changes, to trigger on navigation between Done, Snoozed, etc.
-const headerElement = document.body.querySelector('span.bl')!;
-
-const observer = new MutationObserver(mutationHandler);
-observer.observe(document.body, mutationOptions);
-observer.observe(headerElement, mutationOptions);
+// add Trello button everytime a new actions list is created in the DOM
+const messageList = document.querySelector<WithArrive>('.tE')!;
+messageList.arrive(ITEM_ACTIONS_SELECTOR, (actionToolbar: HTMLElement) => {
+	console.log('created', actionToolbar);
+	// add to start of newly created ul
+	actionToolbar.insertBefore(buildTrelloButton(), actionToolbar.firstChild);
+});
