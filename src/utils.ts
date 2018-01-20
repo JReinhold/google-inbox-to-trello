@@ -3,6 +3,10 @@ interface AttachOptions {
 	once?: string;
 }
 
+// attach an element to all of the elements matching selectors
+// either append or prepend
+// optionally supply a 'once' string, that adds a class to all matching elements,
+// that makes sure it only gets attached once to that element.
 export function attachElemToAll(
 	elementToAdd: HTMLElement,
 	selector: string,
@@ -27,9 +31,17 @@ export function attachElemToAll(
 }
 
 export function buildTrelloButton(): HTMLElement {
-	const rootElem = document.createElement('li');
-	rootElem.appendChild(document.createTextNode('Trello'));
+	const rootLiElement = document.createElement('li');
+	const imgElement = document.createElement('img');
+
+	const regularSrcUrl = chrome.runtime.getURL('trello-btn-icon-black-24dp.png');
+	const doubleSrcUrl = chrome.runtime.getURL('trello-btn-icon-black-24dp-2x.png');
+	const quadrupleSrcUrl = chrome.runtime.getURL('trello-btn-icon-black-24dp-4x.png');
+	imgElement.srcset = `${doubleSrcUrl} 2x, ${quadrupleSrcUrl} 4x`;
+	imgElement.src = regularSrcUrl;
+
+	rootLiElement.appendChild(imgElement);
 	// add classes that match existing toolbar icons
-	rootElem.classList.add('du', 'action', 'actionIcon', 'ew');
-	return rootElem;
+	rootLiElement.classList.add('du', 'action', 'actionIcon', 'ew');
+	return rootLiElement;
 }

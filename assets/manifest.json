@@ -33,5 +33,9 @@
 
 	"permissions": ["storage", "tabs"],
 
-	"web_accessible_resources": ["trello-mark-blue.svg"]
+	"web_accessible_resources": [
+		"trello-btn-icon-black-24dp.png",
+		"trello-btn-icon-black-24dp-2x.png",
+		"trello-btn-icon-black-24dp-4x.png"
+	]
 }
