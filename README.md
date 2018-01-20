@@ -7,12 +7,12 @@ Extension that enables you to quickly create a new Trello card from a mail or th
 
 The purpose of this chrome extension is to make it easy to create Trello cards from e-mails. The Trello Card will contain a link back to the original mail, with the subject as the title.
 
-The extension is inspired by [this medium article](https://praxis.fortelabs.co/one-touch-to-inbox-zero-a74cfa02e5bf) by [Tiago Forte](https://praxis.fortelabs.co/@fortelabs), that thoroughly explains why it's important to easily be able to move your e-mails to a todo list, and just as important why it should always contain a link back to the original mail.
+The extension is inspired by [this Medium article](https://praxis.fortelabs.co/one-touch-to-inbox-zero-a74cfa02e5bf) by [Tiago Forte](https://praxis.fortelabs.co/@fortelabs), that thoroughly explains why it's important to easily be able to move your e-mails to a todo list, and just as important why it should always contain a link back to the original mail.
 ## Installation
 
 ### Chrome Web Store
 
-The extension is available on the official Chrome Web Store [here](linkToWebStore). Just press the *Add to Chrome* button, reload your Google Inbox/Gmail tab, and you are ready to go.
+The extension is available on the official Chrome Web Store [here](https://chrome.google.com/webstore/detail/google-inbox-to-trello/dpljfgaohddbpfhbkpejaacmbfmbenmm). Just press the *Add to Chrome* button, reload your Google Inbox/Gmail tab, and you are ready to go.
 
 ### From source
 
