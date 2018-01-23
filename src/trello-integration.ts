@@ -19,3 +19,8 @@ export function createTrelloCard(title?: string, description?: string, attachmen
 	// send message to extension background process
 	chrome.runtime.sendMessage({ openPopup: url });
 }
+
+export function trelloClickHandler(event: Event) {
+	console.log('LOG: onclick', event);
+	createTrelloCard();
+}

@@ -1,5 +1,6 @@
 import { createToolbarButton } from './toolbar-button';
 import { attachElemToAll, buildTrelloButton } from './utils';
+import { trelloClickHandler } from './trello-integration';
 require('arrive');
 
 const ITEM_ACTIONS_SELECTOR = 'ul.iK:not([aria-label="Bundle actions"])';
@@ -10,11 +11,17 @@ attachElemToAll(buildTrelloButton(), ITEM_ACTIONS_SELECTOR, {
 	prepend: true,
 	once: 'trelloAttached',
 });
+// add click listener to first render buttons
+const trelloBtns = document.querySelectorAll('.itemIconTrello');
+for (let i = 0; i < trelloBtns.length; i++) {
+	trelloBtns[i].addEventListener('click', trelloClickHandler);
+}
 
-// add Trello button everytime a new actions list is created in the DOM
+// add Trello button everytime a new actions toolbar is created in the DOM
 const messageList = document.querySelector<WithArrive>(MESSAGE_LIST_SELECTOR)!;
 messageList.arrive(ITEM_ACTIONS_SELECTOR, (actionToolbar: HTMLElement) => {
-	console.log('created', actionToolbar);
+	const trelloBtn = buildTrelloButton();
 	// add to start of newly created ul
-	actionToolbar.insertBefore(buildTrelloButton(), actionToolbar.firstChild);
+	actionToolbar.insertBefore(trelloBtn, actionToolbar.firstChild);
+	trelloBtn.addEventListener('click', trelloClickHandler);
 });
