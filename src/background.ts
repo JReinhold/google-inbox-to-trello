@@ -8,7 +8,10 @@ chrome.runtime.onMessage.addListener(async request => {
 		const messageData: MessageData = request;
 		console.log('message to background', messageData);
 		const messageIdMaps = await getMessageRfcIds(messageData);
-		const searchUrl = buildInboxSearchUrl({ rfcId: messageIdMaps.threadIdMap.rfcId });
+		const searchUrl = buildInboxSearchUrl({
+			rfcId: messageIdMaps.threadIdMap.rfcId,
+			userString: messageData.userString,
+		});
 		const url = buildTrelloPopupUrl(messageData.subject, searchUrl);
 		chrome.windows.create({ url, type: 'popup', width: 500, height: 400 });
 	}

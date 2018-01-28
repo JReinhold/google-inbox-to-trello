@@ -9,6 +9,7 @@ interface WithArrive extends Element {
 interface MessageData extends MessageDetails {
 	action: string;
 	globals: InboxGlobals;
+	userString: string;
 }
 
 interface MessageDetails {

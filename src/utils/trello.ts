@@ -1,5 +1,5 @@
 import { getInboxGlobals } from './dom';
-import { getMessageDetails } from './inbox';
+import { getMessageDetails, getUserString } from './inbox';
 // utility functions for Trello specific features
 
 let defaultBoard: string | undefined;
@@ -12,11 +12,13 @@ chrome.storage.sync.get(items => {
 
 export function trelloClickHandler(event: Event) {
 	const { permMsgId, subject, isListView } = getMessageDetails(event.target);
+	const userString = getUserString();
 
 	//make everything happen in the background process
 	chrome.runtime.sendMessage({
 		action: 'openTrelloPopup',
 		permMsgId,
+		userString,
 		subject,
 		isListView,
 		globals: getInboxGlobals(),

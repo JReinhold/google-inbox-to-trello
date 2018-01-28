@@ -32,6 +32,7 @@
 	},
 
 	"permissions": ["storage", "tabs", "cookies", "*://inbox.google.com/*"],
+	"incognito": "split",
 
 	"web_accessible_resources": [
 		"trello-btn-icon-black-24dp.png",

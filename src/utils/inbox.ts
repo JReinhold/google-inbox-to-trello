@@ -7,9 +7,18 @@ const chromeP = new ChromePromise();
 
 interface SearchUrlOptions {
 	rfcId: string;
+	userString: string;
 }
-export function buildInboxSearchUrl({ rfcId }: SearchUrlOptions) {
-	const baseUrl = 'https://inbox.google.com/u/0/search/';
+
+export function getUserString() {
+	// if multiple accounts logged in, get current user number from URL, it is just after the /u/ part
+	const userNumber = location.href.split('/u/', 2)[1];
+	const userString = userNumber ? '/u/' + userNumber.charAt(0) : '';
+	return userString;
+}
+
+export function buildInboxSearchUrl({ rfcId, userString }: SearchUrlOptions) {
+	const baseUrl = `https://inbox.google.com${userString}/search/`;
 	const searchOptions = encodeURIComponent('rfc822msgid:' + rfcId);
 	return baseUrl + searchOptions;
 }
@@ -32,10 +41,10 @@ export function parseInboxSyncResponse(responseData: InboxSyncResponseData) {
 	};
 }
 
-export async function getMessageRfcIds({ globals, permMsgId }: MessageData) {
+export async function getMessageRfcIds({ globals, permMsgId, userString }: MessageData) {
 	// This gets all cookies associated with the domain
 	// We actually only need the cookies: OSID (inbox.google.com) and SID, HSID, SSID (.google.com)
-	const cookies = await chromeP.cookies.getAll({ url: 'https://inbox.google.com' });
+	const cookie = await chromeP.cookies.getAll({ url: 'https://inbox.google.com' });
 	const xGmailBtaiHeader = JSON.stringify({
 		'5': globals.ik,
 		'7': 7,
@@ -48,9 +57,9 @@ export async function getMessageRfcIds({ globals, permMsgId }: MessageData) {
 	const postBody = {
 		'1': [{ '1': permMsgId, '3': [] }],
 	};
-	const response = await axios.post('https://inbox.google.com/sync/u/0/i/fd', postBody, {
+	const response = await axios.post(`https://inbox.google.com/sync${userString}/i/fd`, postBody, {
 		headers: {
-			cookies,
+			cookie,
 			'x-gmail-btai': xGmailBtaiHeader,
 			'x-framework-xsrf-token': globals.xsrfToken,
 		},
