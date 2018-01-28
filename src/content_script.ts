@@ -1,6 +1,8 @@
 import { createToolbarButton } from './toolbar-button';
-import { attachElemToAll, buildTrelloButton } from './utils';
+import { buildTrelloButton } from './utils';
 import { trelloClickHandler } from './trello-integration';
+import * as _ from 'lodash';
+import { attachElemToAll, getInboxGlobals } from './utils/dom';
 require('arrive');
 
 const ITEM_ACTIONS_SELECTOR = 'ul.iK:not([aria-label="Bundle actions"])';
@@ -25,3 +27,6 @@ messageList.arrive(ITEM_ACTIONS_SELECTOR, (actionToolbar: HTMLElement) => {
 	actionToolbar.insertBefore(trelloBtn, actionToolbar.firstChild);
 	trelloBtn.addEventListener('click', trelloClickHandler);
 });
+
+// read global variables created by Google Inbox
+getInboxGlobals();

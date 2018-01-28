@@ -31,7 +31,7 @@
 		"chrome_style": true
 	},
 
-	"permissions": ["storage", "tabs"],
+	"permissions": ["storage", "tabs", "cookies", "*://inbox.google.com/*"],
 
 	"web_accessible_resources": [
 		"trello-btn-icon-black-24dp.png",
