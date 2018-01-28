@@ -1,8 +1,8 @@
 import { createToolbarButton } from './toolbar-button';
 import { buildTrelloButton } from './utils';
-import { trelloClickHandler } from './trello-integration';
 import * as _ from 'lodash';
 import { attachElemToAll, getInboxGlobals } from './utils/dom';
+import { trelloClickHandler } from './utils/trello';
 require('arrive');
 
 const ITEM_ACTIONS_SELECTOR = 'ul.iK:not([aria-label="Bundle actions"])';
