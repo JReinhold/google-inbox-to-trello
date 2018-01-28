@@ -45,7 +45,7 @@ export function attachElemToAll(
 
 let inboxGlobals: InboxGlobals;
 // gets global variables from Inbox scripts
-// uses all sorts of weird scripts that tslint doesn't allow
+// uses all sorts of weird functions that tslint doesn't allow
 /*tslint:disable*/
 export const getInboxGlobals = () => {
 	if (inboxGlobals) {

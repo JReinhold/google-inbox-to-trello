@@ -6,16 +6,21 @@ interface WithArrive extends Element {
 	arrive: (selector: string, callback: (newElement: HTMLElement) => void) => void;
 }
 
-interface MessageData extends MessageDetails {
-	action: string;
-	globals: InboxGlobals;
-	userString: string;
+interface ExtensionStorage {
+	defaultBoard: string;
+	defaultList: string;
 }
 
 interface MessageDetails {
 	subject: string;
 	permMsgId: string;
 	isListView: boolean;
+}
+
+interface MessageData extends MessageDetails {
+	action: string;
+	globals: InboxGlobals;
+	userString: string;
 }
 
 interface InboxGlobals {
@@ -35,9 +40,9 @@ interface InboxSyncResponseData {
 	];
 }
 interface InboxSyncResponseMessage {
-	1: string;
+	1: string; //permanent message id
 	2: {
-		8: string;
+		8: string; //rfc822 message id
 	};
 }
 

@@ -5,11 +5,6 @@ import { getTextContent } from './dom';
 import { getStringBetween } from './index';
 const chromeP = new ChromePromise();
 
-interface SearchUrlOptions {
-	rfcId: string;
-	userString: string;
-}
-
 export function getUserString() {
 	// if multiple accounts logged in, get current user number from URL, it is just after the /u/ part
 	const userNumber = location.href.split('/u/', 2)[1];
@@ -17,12 +12,19 @@ export function getUserString() {
 	return userString;
 }
 
+interface SearchUrlOptions {
+	rfcId: string;
+	userString: string;
+}
 export function buildInboxSearchUrl({ rfcId, userString }: SearchUrlOptions) {
 	const baseUrl = `https://inbox.google.com${userString}/search/`;
 	const searchOptions = encodeURIComponent('rfc822msgid:' + rfcId);
 	return baseUrl + searchOptions;
 }
 
+// parse the resonse from inbox sync from random arrays into
+// maps between permanent message ids to rfc822 message ids
+// ie. map ids we can read from the DOM to ids we can search for
 export function parseInboxSyncResponse(responseData: InboxSyncResponseData) {
 	const messagesArray = responseData[2][0][3];
 	const messageIdMap: MessageIdMap[] = messagesArray.map((message: InboxSyncResponseMessage) => {
@@ -41,10 +43,15 @@ export function parseInboxSyncResponse(responseData: InboxSyncResponseData) {
 	};
 }
 
+// get rfc822 message ids for all messages in a thread
+// makes a request to inbox.google.com that mimics how Inbox usually syncs data
+// returns a map between permanent message ids and rfc822 ids
 export async function getMessageRfcIds({ globals, permMsgId, userString }: MessageData) {
 	// This gets all cookies associated with the domain
 	// We actually only need the cookies: OSID (inbox.google.com) and SID, HSID, SSID (.google.com)
 	const cookie = await chromeP.cookies.getAll({ url: 'https://inbox.google.com' });
+
+	// I don't know what all this data is, I just know it is needed for the request to be valid
 	const xGmailBtaiHeader = JSON.stringify({
 		'5': globals.ik,
 		'7': 7,
@@ -57,6 +64,7 @@ export async function getMessageRfcIds({ globals, permMsgId, userString }: Messa
 	const postBody = {
 		'1': [{ '1': permMsgId, '3': [] }],
 	};
+
 	const response = await axios.post(`https://inbox.google.com/sync${userString}/i/fd`, postBody, {
 		headers: {
 			cookie,
@@ -64,12 +72,16 @@ export async function getMessageRfcIds({ globals, permMsgId, userString }: Messa
 			'x-framework-xsrf-token': globals.xsrfToken,
 		},
 	});
+
 	const messageIdMaps = parseInboxSyncResponse(response.data);
-	console.log('SEARCH STRING:');
-	console.log(`https://inbox.google.com/u/0/search/rfc822msgid:${messageIdMaps.threadIdMap.rfcId}`);
 	return messageIdMaps;
 }
 
+/**
+ * traverses the DOM surrounding an action button (such as the Trello button), to extract information
+ * @param toolbarTarget the action button that was clicked, needs to be inside the action list
+ * @returns MessageDetails: { subject, permMsgId, isListView}
+ */
 export function getMessageDetails(toolbarTarget: EventTarget): MessageDetails {
 	const toolbarElement = toolbarTarget as HTMLElement;
 

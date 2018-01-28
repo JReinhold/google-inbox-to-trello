@@ -13,7 +13,7 @@ function saveOptions(e: Event) {
 
 // inserts values from extension storage into the options view
 function restoreOptionsToView() {
-	function setCurrentOptions(result: any) {
+	function setCurrentOptions(result: { [key: string]: any }) {
 		(<HTMLInputElement>document.querySelector('#defaultBoard')).value = result.defaultBoard || '';
 		(<HTMLInputElement>document.querySelector('#defaultList')).value = result.defaultList || '';
 	}
