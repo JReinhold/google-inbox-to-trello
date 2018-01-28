@@ -6,6 +6,11 @@ interface WithArrive extends Element {
 	arrive: (selector: string, callback: (newElement: HTMLElement) => void) => void;
 }
 
+interface MessageData extends MessageDetails {
+	action: string;
+	globals: InboxGlobals;
+}
+
 interface MessageDetails {
 	subject: string;
 	body: string;

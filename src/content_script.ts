@@ -1,4 +1,3 @@
-import { createToolbarButton } from './toolbar-button';
 import { buildTrelloButton } from './utils';
 import * as _ from 'lodash';
 import { attachElemToAll, getInboxGlobals } from './utils/dom';

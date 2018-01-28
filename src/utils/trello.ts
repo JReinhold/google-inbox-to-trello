@@ -30,12 +30,13 @@ export function trelloClickHandler(event: Event) {
  * @param description description of the Trello card
  * @param attachment attachment to add to Trello card
  */
-export function buildTrelloPopupUrl(title?: string, description?: string, attachment?: string) {
+export function buildTrelloPopupUrl(title?: string, attachment?: string) {
 	const baseUrl = 'https://trello.com/add-card?';
+	const baseParams = '&mode=popup&source=inbox.google.com';
 	const titlePart = title ? '&name=' + encodeURIComponent(title) : '';
 	const linkPart = attachment ? '&url=' + encodeURIComponent(attachment) : '';
 	const boardPart = defaultBoard ? '&idBoard=' + defaultBoard : '';
 	const listPart = defaultList ? '&idList=' + defaultList : '';
 
-	return baseUrl + titlePart + linkPart + boardPart + listPart;
+	return baseUrl + baseParams + titlePart + linkPart + boardPart + listPart;
 }

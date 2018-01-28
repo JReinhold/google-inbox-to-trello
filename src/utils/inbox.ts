@@ -32,10 +32,6 @@ export function parseInboxSyncResponse(responseData: InboxSyncResponseData) {
 	};
 }
 
-interface MessageData extends MessageDetails {
-	action: string;
-	globals: InboxGlobals;
-}
 export async function getMessageRfcIds({ globals, permMsgId }: MessageData) {
 	// This gets all cookies associated with the domain
 	// We actually only need the cookies: OSID (inbox.google.com) and SID, HSID, SSID (.google.com)

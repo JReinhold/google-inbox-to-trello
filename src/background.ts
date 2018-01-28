@@ -5,11 +5,12 @@ import { buildTrelloPopupUrl } from './utils/trello';
 chrome.runtime.onMessage.addListener(async request => {
 	// open new popup on message from content_scripts
 	if (request.action === 'openTrelloPopup') {
-		console.log('message to background', request);
-		const messageIdMaps = await getMessageRfcIds(request);
+		const messageData: MessageData = request;
+		console.log('message to background', messageData);
+		const messageIdMaps = await getMessageRfcIds(messageData);
 		const searchUrl = buildInboxSearchUrl({ rfcId: messageIdMaps.threadIdMap.rfcId });
-		const url = buildTrelloPopupUrl('cool title', undefined, searchUrl);
-		chrome.windows.create({ url, type: 'popup', width: 500, height: 550 });
+		const url = buildTrelloPopupUrl(messageData.subject, searchUrl);
+		chrome.windows.create({ url, type: 'popup', width: 500, height: 400 });
 	}
 });
 
