@@ -30,16 +30,16 @@ export function attachElemToAll(
 	}
 
 	const selectedElements = document.querySelectorAll(selector);
-	for (let i = 0; i < selectedElements.length; i++) {
-		const parent = selectedElements[i];
+	Array.from(selectedElements).forEach(elem => {
 		if (opts.once) {
-			parent.classList.add(opts.once);
+			elem.classList.add(opts.once);
 		}
 
 		opts.prepend
-			? parent.insertBefore(elementToAdd.cloneNode(true), parent.firstChild)
-			: parent.appendChild(elementToAdd.cloneNode(true));
-	}
+			? elem.insertBefore(elementToAdd.cloneNode(true), elem.firstChild)
+			: elem.appendChild(elementToAdd.cloneNode(true));
+	});
+
 	return selectedElements;
 }
 
@@ -62,8 +62,6 @@ export const getInboxGlobals = () => {
 	}
 
 	const BT_EmbeddedAppData = (window as any).BT_EmbeddedAppData;
-	console.log('LOG: BT_EMBEDDEDAPPDATA', BT_EmbeddedAppData);
-
 	const globals = {
 		unknownGmailNumber: BT_EmbeddedAppData[1],
 		bigtop: BT_EmbeddedAppData[2],
@@ -71,7 +69,6 @@ export const getInboxGlobals = () => {
 		xsrfToken: BT_EmbeddedAppData[12],
 	};
 	inboxGlobals = globals;
-	console.log('globals in getglobals', inboxGlobals);
 	return inboxGlobals;
 };
 /*tslint:enable*/

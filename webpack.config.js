@@ -28,7 +28,6 @@ module.exports = {
 	plugins: [
 		new CopyWebpackPlugin([
 			{ from: 'assets/' },
-			{ from: 'lib/', to: 'lib/' },
 			{ from: 'src/options/index.html', to: 'options.html' },
 		]),
 	],

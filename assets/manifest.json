@@ -18,7 +18,7 @@
 	"content_scripts": [
 		{
 			"matches": ["https://mail.google.com/*", "https://inbox.google.com/*"],
-			"js": ["lib/inboxsdk.js", "js/content_script.js"]
+			"js": ["js/content_script.js"]
 		}
 	],
 

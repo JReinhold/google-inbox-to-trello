@@ -1,7 +1,6 @@
 // get the string between to other strings
 export function getStringBetween(string: string, prefix: string, suffix: string) {
 	const regexMatcher = new RegExp(`(?:${prefix})(.*?)(?:${suffix})`, 'g');
-	console.log('regex', regexMatcher);
 	const result = regexMatcher.exec(string);
 	return result && result.length >= 2 ? result[1] : 'string not found';
 }
