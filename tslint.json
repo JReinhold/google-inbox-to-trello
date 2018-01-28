@@ -32,5 +32,6 @@
 		"typedef": [true, "parameter", "property-declaration"],
 		"variable-name": false,
 		"jsx-alignment": false
-	}
+	},
+	"defaultSeverity": "warning"
 }

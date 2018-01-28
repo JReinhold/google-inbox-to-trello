@@ -3,8 +3,8 @@
 
 	"name": "Google Inbox to Trello",
 	"short_name": "Inbox to Trello",
-	"description": "Quickly create Trello cards from mails in Google Inbox and Gmail",
-	"version": "1.0.1",
+	"description": "Quickly create Trello cards from mails in Google Inbox",
+	"version": "1.1.0",
 
 	"icons": {
 		"16": "icon-16.png",
@@ -18,7 +18,7 @@
 	"content_scripts": [
 		{
 			"matches": ["https://mail.google.com/*", "https://inbox.google.com/*"],
-			"js": ["lib/inboxsdk.js", "js/content_script.js"]
+			"js": ["js/content_script.js"]
 		}
 	],
 
@@ -32,6 +32,11 @@
 	},
 
 	"permissions": ["storage", "tabs"],
+	"incognito": "split",
 
-	"web_accessible_resources": ["trello-mark-blue.svg"]
+	"web_accessible_resources": [
+		"trello-btn-icon-black-24dp.png",
+		"trello-btn-icon-black-24dp-2x.png",
+		"trello-btn-icon-black-24dp-4x.png"
+	]
 }

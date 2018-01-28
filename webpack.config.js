@@ -19,9 +19,18 @@ module.exports = {
 				test: /\.tsx?$/,
 				loader: 'ts-loader',
 			},
+			{
+				test: require.resolve('arrive'),
+				loader: 'imports-loader?this=>window',
+			},
 		],
 	},
-	plugins: [new CopyWebpackPlugin([{ from: 'assets/' }, {from: 'lib/', to: 'lib/'}, {from: 'src/options/index.html', to: 'options.html'}])],
+	plugins: [
+		new CopyWebpackPlugin([
+			{ from: 'assets/' },
+			{ from: 'src/options/index.html', to: 'options.html' },
+		]),
+	],
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js'],
 	},

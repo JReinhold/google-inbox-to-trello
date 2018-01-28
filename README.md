@@ -1,18 +1,18 @@
 # Inbox to Trello Extension
-Extension that enables you to quickly create a new Trello card from a mail or thread in Google Inbox and Gmail.
+Extension that enables you to quickly create a new Trello card from a mail or thread in Google Inbox.
 
 ![Demo GIF](https://raw.githubusercontent.com/JReinhold/google-inbox-to-trello/master/images/demo.gif)
 
 ## Purpose
 
-The purpose of this chrome extension is to make it easy to create Trello cards from e-mails. The Trello Card will contain a link back to the original mail, with the subject as the title.
+The purpose of this Chrome extension is to make it easy to create Trello cards from e-mails. The Trello Card will contain a link back to the original mail, with the subject as the title.
 
 The extension is inspired by [this Medium article](https://praxis.fortelabs.co/one-touch-to-inbox-zero-a74cfa02e5bf) by [Tiago Forte](https://praxis.fortelabs.co/@fortelabs), that thoroughly explains why it's important to easily be able to move your e-mails to a todo list, and just as important why it should always contain a link back to the original mail.
 ## Installation
 
 ### Chrome Web Store
 
-The extension is available on the official Chrome Web Store [here](https://chrome.google.com/webstore/detail/google-inbox-to-trello/dpljfgaohddbpfhbkpejaacmbfmbenmm). Just press the *Add to Chrome* button, reload your Google Inbox/Gmail tab, and you are ready to go.
+The extension is available on the official Chrome Web Store [here](https://chrome.google.com/webstore/detail/google-inbox-to-trello/dpljfgaohddbpfhbkpejaacmbfmbenmm). Just press the *Add to Chrome* button, reload your Google Inbox tab, and you are ready to go.
 
 ### From source
 
@@ -44,7 +44,7 @@ If I ever find this useful, I have a few improvements I would like to make. The 
 - [ ] Port to WebExtension to support Firefox, Safari, Edge and possibly more.
 - [ ] Quick option that instantly creates card in predefined board+list
 - [ ] Auto-archive mails on card creation
-- [ ] Support links back to Inbox, not just Gmail
+- [x] Support links back to Inbox, not just Gmail
 - [ ] Add mail attachments and images to Trello Card
 - [ ] Advanced configuration of cards with Labels, Members, etc.
 
