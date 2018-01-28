@@ -47,10 +47,6 @@ export function parseInboxSyncResponse(responseData: InboxSyncResponseData) {
 // makes a request to inbox.google.com that mimics how Inbox usually syncs data
 // returns a map between permanent message ids and rfc822 ids
 export async function getMessageRfcIds({ globals, permMsgId, userString }: MessageData) {
-	// This gets all cookies associated with the domain
-	// We actually only need the cookies: OSID (inbox.google.com) and SID, HSID, SSID (.google.com)
-	const cookie = await chromeP.cookies.getAll({ url: 'https://inbox.google.com' });
-
 	// I don't know what all this data is, I just know it is needed for the request to be valid
 	const xGmailBtaiHeader = JSON.stringify({
 		'5': globals.ik,
@@ -67,7 +63,6 @@ export async function getMessageRfcIds({ globals, permMsgId, userString }: Messa
 
 	const response = await axios.post(`https://inbox.google.com/sync${userString}/i/fd`, postBody, {
 		headers: {
-			cookie,
 			'x-gmail-btai': xGmailBtaiHeader,
 			'x-framework-xsrf-token': globals.xsrfToken,
 		},

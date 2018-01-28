@@ -31,7 +31,7 @@
 		"chrome_style": true
 	},
 
-	"permissions": ["storage", "tabs", "cookies", "*://inbox.google.com/*"],
+	"permissions": ["storage", "tabs"],
 	"incognito": "split",
 
 	"web_accessible_resources": [
