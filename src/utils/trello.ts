@@ -18,7 +18,12 @@ chrome.storage.sync.get(items => {
  * @param event ClickEvent on button
  */
 export function trelloClickHandler(event: Event) {
-	const { permMsgId, subject, isListView } = getMessageDetails(event.target);
+	const button = event.target as HTMLLIElement;
+	// add circle style, and remove it again after 500ms
+	button.classList.add('ar');
+	setTimeout(() => button.classList.remove('ar'), 500);
+
+	const { permMsgId, subject, isListView } = getMessageDetails(button);
 	const userString = getUserString();
 
 	//make everything happen in the background process
