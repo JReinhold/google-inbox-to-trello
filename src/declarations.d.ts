@@ -13,7 +13,6 @@ interface MessageData extends MessageDetails {
 
 interface MessageDetails {
 	subject: string;
-	body: string;
 	permMsgId: string;
 	isListView: boolean;
 }

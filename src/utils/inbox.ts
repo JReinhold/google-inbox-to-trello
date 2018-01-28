@@ -66,28 +66,25 @@ export function getMessageDetails(toolbarTarget: EventTarget): MessageDetails {
 
 	let subject: string;
 	let body: string;
-	let permMsgId: string;
+	let msgAttribute: string;
 	let isListView: boolean;
 	let listParent = toolbarElement.closest('div.an.b9');
-	let messageParent = toolbarElement.closest('.aY.ac.X.s2');
+	let messageParent = toolbarElement.closest('div.bJ.s2');
 	if (listParent) {
 		// the button is pressed in the list view
 		isListView = true;
 		subject = getTextContent(listParent, '.bg > span');
-		body = getTextContent(listParent, '.g6 > span');
-		const msgAttribute = listParent.getAttribute('data-action-data') || '';
-		permMsgId = 'thread-' + getStringBetween(msgAttribute, '#thread-', '"');
+		msgAttribute = listParent.getAttribute('data-action-data') || '';
 	} else if (messageParent) {
 		// the button is pressed in the message view
-		// TODO: selectors doesnt work here!!!!
 		isListView = false;
-		subject = getTextContent(messageParent, '.bg > span');
-		body = getTextContent(messageParent, '.g6 > span');
-		permMsgId = 'msg-a:r8799996822601559104';
+		subject = getTextContent(messageParent, '.eo > span');
+		msgAttribute = messageParent.getAttribute('data-action-data') || '';
 	} else {
 		throw new Error(
 			'The Trello button was not clicked in a list or message view. Where was it clicked?',
 		);
 	}
-	return { subject, body, permMsgId, isListView };
+	const permMsgId = 'thread-' + getStringBetween(msgAttribute, '#thread-', '"');
+	return { subject, permMsgId, isListView };
 }

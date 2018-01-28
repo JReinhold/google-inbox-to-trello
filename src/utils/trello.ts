@@ -11,14 +11,13 @@ chrome.storage.sync.get(items => {
 });
 
 export function trelloClickHandler(event: Event) {
-	const { permMsgId, subject, body, isListView } = getMessageDetails(event.target);
+	const { permMsgId, subject, isListView } = getMessageDetails(event.target);
 
 	//make everything happen in the background process
 	chrome.runtime.sendMessage({
 		action: 'openTrelloPopup',
 		permMsgId,
 		subject,
-		body,
 		isListView,
 		globals: getInboxGlobals(),
 	});
