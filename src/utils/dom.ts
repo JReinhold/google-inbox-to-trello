@@ -57,16 +57,15 @@ export const getInboxGlobals = () => {
 	);
 	if (globalsScript) {
 		// create a dummy BT_Now function to make sure eval() doesn't fail
-		(window as any).BT_Now = () => {};
+		window.BT_Now = () => {};
 		eval(globalsScript.innerHTML);
 	}
 
-	const BT_EmbeddedAppData = (window as any).BT_EmbeddedAppData;
 	const globals = {
-		unknownGmailNumber: BT_EmbeddedAppData[1],
-		bigtop: BT_EmbeddedAppData[2],
-		ik: BT_EmbeddedAppData[11],
-		xsrfToken: BT_EmbeddedAppData[12],
+		unknownGmailNumber: window.BT_EmbeddedAppData[1],
+		bigtop: window.BT_EmbeddedAppData[2],
+		ik: window.BT_EmbeddedAppData[11],
+		xsrfToken: window.BT_EmbeddedAppData[12],
 	};
 	inboxGlobals = globals;
 	return inboxGlobals;

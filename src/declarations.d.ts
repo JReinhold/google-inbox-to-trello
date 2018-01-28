@@ -1,6 +1,10 @@
-declare var InboxSDK: any;
 declare module 'arrive';
 declare function require(name: string): Function;
+
+interface Window {
+	BT_EmbeddedAppData: any;
+	BT_Now: () => void;
+}
 
 interface WithArrive extends Element {
 	arrive: (selector: string, callback: (newElement: HTMLElement) => void) => void;
