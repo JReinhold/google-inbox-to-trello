@@ -4,6 +4,7 @@ declare function require(name: string): Function;
 interface Window {
 	BT_EmbeddedAppData: any;
 	BT_Now: () => void;
+	browser: any;
 }
 
 interface WithArrive extends Element {

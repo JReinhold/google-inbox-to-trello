@@ -1,3 +1,5 @@
+import { crossBrowser } from './../utils/browser';
+
 // save options to synchronized extension storage
 function saveOptions(e: Event) {
 	e.preventDefault();
@@ -5,20 +7,22 @@ function saveOptions(e: Event) {
 	const defaultBoard = (<HTMLInputElement>document.querySelector('#defaultBoard')).value;
 	const defaultList = (<HTMLInputElement>document.querySelector('#defaultList')).value;
 
-	chrome.storage.sync.set({
+	crossBrowser.storage.sync.set({
 		defaultBoard,
 		defaultList,
 	});
 }
 
 // inserts values from extension storage into the options view
-function restoreOptionsToView() {
+async function restoreOptionsToView() {
 	function setCurrentOptions(result: { [key: string]: any }) {
+		console.log(result);
 		(<HTMLInputElement>document.querySelector('#defaultBoard')).value = result.defaultBoard || '';
 		(<HTMLInputElement>document.querySelector('#defaultList')).value = result.defaultList || '';
 	}
 
-	chrome.storage.sync.get(setCurrentOptions);
+	const options = await crossBrowser.storage.sync.get();
+	setCurrentOptions(options);
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptionsToView);

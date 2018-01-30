@@ -1,3 +1,5 @@
+import { crossBrowser } from './browser';
+
 /**
  * Finds a substring within another string, using a prefix and a suffix as a search
  * @param string the full string to extract from
@@ -21,9 +23,9 @@ export function buildTrelloButton(): HTMLElement {
 	(rootLiElement as any).role = 'button';
 
 	const imgElement = document.createElement('img');
-	const regularSrcUrl = chrome.runtime.getURL('trello-btn-icon-black-24dp.png');
-	const doubleSrcUrl = chrome.runtime.getURL('trello-btn-icon-black-24dp-2x.png');
-	const quadrupleSrcUrl = chrome.runtime.getURL('trello-btn-icon-black-24dp-4x.png');
+	const regularSrcUrl = crossBrowser.runtime.getURL('trello-btn-icon-black-24dp.png');
+	const doubleSrcUrl = crossBrowser.runtime.getURL('trello-btn-icon-black-24dp-2x.png');
+	const quadrupleSrcUrl = crossBrowser.runtime.getURL('trello-btn-icon-black-24dp-4x.png');
 	imgElement.srcset = `${doubleSrcUrl} 2x, ${quadrupleSrcUrl} 4x`;
 	imgElement.src = regularSrcUrl;
 	rootLiElement.appendChild(imgElement);
