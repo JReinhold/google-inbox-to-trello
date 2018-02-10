@@ -1,9 +1,7 @@
 // utility functions for Google Inbox specific features
 import axios from 'axios';
-import ChromePromise from 'chrome-promise';
 import { getTextContent } from './dom';
 import { getStringBetween } from './index';
-const chromeP = new ChromePromise();
 
 export function getUserString() {
 	// if multiple accounts logged in, get current user number from URL, it is just after the /u/ part

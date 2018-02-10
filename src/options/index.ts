@@ -16,7 +16,6 @@ function saveOptions(e: Event) {
 // inserts values from extension storage into the options view
 async function restoreOptionsToView() {
 	function setCurrentOptions(result: { [key: string]: any }) {
-		console.log(result);
 		(<HTMLInputElement>document.querySelector('#defaultBoard')).value = result.defaultBoard || '';
 		(<HTMLInputElement>document.querySelector('#defaultList')).value = result.defaultList || '';
 	}
