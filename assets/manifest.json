@@ -18,7 +18,7 @@
 
 	"content_scripts": [
 		{
-			"matches": ["https://mail.google.com/*", "https://inbox.google.com/*"],
+			"matches": ["https://inbox.google.com/*"],
 			"js": ["js/content_script.js"]
 		}
 	],
@@ -33,7 +33,6 @@
 	},
 
 	"permissions": ["storage", "tabs"],
-	"incognito": "split",
 
 	"web_accessible_resources": [
 		"trello-btn-icon-black-24dp.png",
