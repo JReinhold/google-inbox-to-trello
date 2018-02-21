@@ -23,16 +23,18 @@ export function trelloClickHandler(event: Event) {
 	button.classList.add('ar');
 	setTimeout(() => button.classList.remove('ar'), 500);
 
-	const { permMsgId, subject, isListView } = getMessageDetails(button);
+	const { permMsgId, subject, viewType } = getMessageDetails(button);
 	const userString = getUserString();
+
+	const action = viewType === 'reminder' ? 'openTrelloPopupReminder' : 'openTrelloPopupMessage';
 
 	//make everything happen in the background process
 	chrome.runtime.sendMessage({
-		action: 'openTrelloPopup',
+		action,
 		permMsgId,
 		userString,
 		subject,
-		isListView,
+		viewType,
 		globals: getInboxGlobals(),
 	});
 }
