@@ -18,7 +18,8 @@ interface ExtensionStorage {
 interface MessageDetails {
 	subject: string;
 	permMsgId: string;
-	viewType: 'list' | 'message' | 'reminder';
+	contentType: 'message' | 'reminder';
+	viewType: 'collapsed' | 'expanded';
 }
 
 interface MessageData extends MessageDetails {

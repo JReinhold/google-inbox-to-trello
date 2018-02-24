@@ -91,30 +91,41 @@ export function getMessageDetails(toolbarTarget: EventTarget): MessageDetails {
 	let subject: string;
 	let body: string;
 	let msgAttribute: string;
+	let contentType: MessageDetails['contentType'];
 	let viewType: MessageDetails['viewType'];
-	let listParent = toolbarElement.closest('div.an.b9');
-	let messageParent = toolbarElement.closest('div.bJ.s2');
-	let reminderParent = toolbarElement.closest('div.an.cF');
-	if (listParent) {
-		// the button is pressed in the list view
-		viewType = 'list';
-		subject = getTextContent(listParent, '.bg > span');
-		msgAttribute = listParent.getAttribute('data-action-data') || '';
-	} else if (messageParent) {
-		// the button is pressed in the message view
-		viewType = 'message';
-		subject = getTextContent(messageParent, '.eo > span');
-		msgAttribute = messageParent.getAttribute('data-action-data') || '';
-	} else if (reminderParent) {
-		// the button is pressed in the reminder view
-		viewType = 'reminder';
-		subject = getTextContent(reminderParent, '.bg > span');
-		msgAttribute = reminderParent.getAttribute('data-action-data') || '';
+
+	// determine what kind of element the button is inside
+	// collapsed in the list, or expanded in full view? message or reminder?
+	const collapsedParent = toolbarElement.closest('div.an');
+	const expandedParent = toolbarElement.closest('div.ac.aY');
+
+	if (collapsedParent) {
+		viewType = 'collapsed';
+		contentType = collapsedParent.classList.contains('b9') ? 'message' : 'reminder';
+
+		subject = getTextContent(collapsedParent, '.bg > span');
+		msgAttribute = collapsedParent.getAttribute('data-action-data') || '';
+	} else if (expandedParent) {
+		viewType = 'expanded';
+
+		const attributeContainer = expandedParent.querySelector('div.bJ.s2');
+		msgAttribute = attributeContainer
+			? attributeContainer.getAttribute('data-action-data') || ''
+			: '';
+
+		if (expandedParent.classList.contains('s2')) {
+			contentType = 'message';
+			subject = getTextContent(expandedParent, '.eo > span');
+		} else {
+			contentType = 'reminder';
+			subject = getTextContent(expandedParent, 'div.hF.pQ');
+		}
 	} else {
 		throw new Error(
-			'The Trello button was not clicked in a list, message or reminder view. Where was it clicked?',
+			'Could not determine where the button was clicked (collapsed vs. expanded). Where was it clicked?',
 		);
 	}
+
 	const permMsgId = 'thread-' + getStringBetween(msgAttribute, '#thread-', '"');
-	return { subject, permMsgId, viewType };
+	return { subject, permMsgId, contentType, viewType };
 }
