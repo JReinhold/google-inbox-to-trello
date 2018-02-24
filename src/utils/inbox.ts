@@ -12,13 +12,22 @@ export function getUserString() {
 	return userString;
 }
 
-interface SearchUrlOptions {
+interface MessageSearchUrlOptions {
 	rfcId: string;
 	userString: string;
 }
-export function buildInboxSearchUrl({ rfcId, userString }: SearchUrlOptions) {
+export function buildInboxMessageSearchUrl({ rfcId, userString }: MessageSearchUrlOptions) {
 	const baseUrl = `https://inbox.google.com${userString}/search/`;
 	const searchOptions = encodeURIComponent('rfc822msgid:' + rfcId);
+	return baseUrl + searchOptions;
+}
+interface ReminderSearchUrlOptions {
+	subject: string;
+	userString: string;
+}
+export function buildInboxReminderSearchUrl({ subject, userString }: ReminderSearchUrlOptions) {
+	const baseUrl = `https://inbox.google.com${userString}/search/`;
+	const searchOptions = encodeURIComponent('in:reminder ' + subject);
 	return baseUrl + searchOptions;
 }
 
@@ -67,7 +76,6 @@ export async function getMessageRfcIds({ globals, permMsgId, userString }: Messa
 			'x-framework-xsrf-token': globals.xsrfToken,
 		},
 	});
-
 	const messageIdMaps = parseInboxSyncResponse(response.data);
 	return messageIdMaps;
 }
@@ -83,24 +91,41 @@ export function getMessageDetails(toolbarTarget: EventTarget): MessageDetails {
 	let subject: string;
 	let body: string;
 	let msgAttribute: string;
-	let isListView: boolean;
-	let listParent = toolbarElement.closest('div.an.b9');
-	let messageParent = toolbarElement.closest('div.bJ.s2');
-	if (listParent) {
-		// the button is pressed in the list view
-		isListView = true;
-		subject = getTextContent(listParent, '.bg > span');
-		msgAttribute = listParent.getAttribute('data-action-data') || '';
-	} else if (messageParent) {
-		// the button is pressed in the message view
-		isListView = false;
-		subject = getTextContent(messageParent, '.eo > span');
-		msgAttribute = messageParent.getAttribute('data-action-data') || '';
+	let contentType: MessageDetails['contentType'];
+	let viewType: MessageDetails['viewType'];
+
+	// determine what kind of element the button is inside
+	// collapsed in the list, or expanded in full view? message or reminder?
+	const collapsedParent = toolbarElement.closest('div.an');
+	const expandedParent = toolbarElement.closest('div.ac.aY');
+
+	if (collapsedParent) {
+		viewType = 'collapsed';
+		contentType = collapsedParent.classList.contains('b9') ? 'message' : 'reminder';
+
+		subject = getTextContent(collapsedParent, '.bg > span');
+		msgAttribute = collapsedParent.getAttribute('data-action-data') || '';
+	} else if (expandedParent) {
+		viewType = 'expanded';
+
+		const attributeContainer = expandedParent.querySelector('div.bJ.s2');
+		msgAttribute = attributeContainer
+			? attributeContainer.getAttribute('data-action-data') || ''
+			: '';
+
+		if (expandedParent.classList.contains('s2')) {
+			contentType = 'message';
+			subject = getTextContent(expandedParent, '.eo > span');
+		} else {
+			contentType = 'reminder';
+			subject = getTextContent(expandedParent, 'div.hF.pQ');
+		}
 	} else {
 		throw new Error(
-			'The Trello button was not clicked in a list or message view. Where was it clicked?',
+			'Could not determine where the button was clicked (collapsed vs. expanded). Where was it clicked?',
 		);
 	}
+
 	const permMsgId = 'thread-' + getStringBetween(msgAttribute, '#thread-', '"');
-	return { subject, permMsgId, isListView };
+	return { subject, permMsgId, contentType, viewType };
 }
