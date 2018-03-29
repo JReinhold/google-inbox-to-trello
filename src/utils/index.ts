@@ -1,5 +1,3 @@
-import { crossBrowser } from './browser';
-
 /**
  * Finds a substring within another string, using a prefix and a suffix as a search
  * @param string the full string to extract from

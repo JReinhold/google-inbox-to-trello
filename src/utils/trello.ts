@@ -2,7 +2,6 @@
 
 import { getInboxGlobals } from './dom';
 import { getMessageDetails, getUserString } from './inbox';
-import { crossBrowser } from './browser';
 
 // extension options specified by user
 let defaultBoard: string | undefined;

@@ -1,12 +1,12 @@
 {
 	"name": "webextension-google-inbox-to-trello",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "WebExtension to create Trello cards from mails in Google Inbox",
-	"main": "index.js",
 	"scripts": {
 		"clean-build": "rm -rf ./build/* && mkdir -p ./build",
 		"prebuild": "yarn clean-build",
 		"build": "webpack",
+		"build:firefox": "web-ext build --source-dir ./build",
 		"dev": "webpack -w",
 		"dev:firefox": "npm-run-all --parallel dev dev:firefox-nowatch",
 		"dev:firefox-nowatch": "web-ext run --source-dir ./build --start-url https://inbox.google.com",
@@ -22,11 +22,9 @@
 	"dependencies": {
 		"arrive": "^2.4.1",
 		"axios": "^0.17.1",
-		"chrome-promise": "^2.1.2",
 		"lodash": "^4.17.4"
 	},
 	"devDependencies": {
-		"@types/chrome": "^0.0.59",
 		"@types/lodash": "^4.14.97",
 		"copy-webpack-plugin": "^4.3.1",
 		"husky": "^0.14.3",

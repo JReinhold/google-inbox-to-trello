@@ -1,5 +1,3 @@
-import { crossBrowser } from './../utils/browser';
-
 // save options to synchronized extension storage
 function saveOptions(e: Event) {
 	e.preventDefault();

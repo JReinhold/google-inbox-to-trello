@@ -16,22 +16,6 @@
     "@cliqz-oss/firefox-client" "0.3.1"
     es6-promise "^2.0.1"
 
-"@types/chrome@^0.0.59":
-  version "0.0.59"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.59.tgz#2a93f5d9f4558163cead1aaefc94a74e69cf9aa8"
-  dependencies:
-    "@types/filesystem" "*"
-
-"@types/filesystem@*":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@types/filesystem/-/filesystem-0.0.28.tgz#3fd7735830f2c7413cb5ac45780bc45904697b0e"
-  dependencies:
-    "@types/filewriter" "*"
-
-"@types/filewriter@*":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@types/filewriter/-/filewriter-0.0.28.tgz#c054e8af4d9dd75db4e63abc76f885168714d4b3"
-
 "@types/lodash@^4.14.97":
   version "4.14.97"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.97.tgz#7262d6d5fc5e87cdb3f68eb33accd4024f2b211e"
@@ -1026,10 +1010,6 @@ chokidar@^2.0.2:
 chownr@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.0.1.tgz#e2a75042a9551908bebd25b8523d5f9769d79181"
-
-chrome-promise@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/chrome-promise/-/chrome-promise-2.1.2.tgz#bf3048e92a97d03085bc36c5fde18cf1178165a6"
 
 ci-info@^1.0.0:
   version "1.1.2"
