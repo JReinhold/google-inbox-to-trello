@@ -28,6 +28,7 @@ module.exports = {
 	},
 	plugins: [
 		new CopyWebpackPlugin([
+			{ from: 'manifest.json' },
 			{ from: 'assets/' },
 			{ from: 'src/options/index.html', to: 'options.html' },
 		]),

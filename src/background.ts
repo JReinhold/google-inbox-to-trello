@@ -8,7 +8,7 @@ import {
 import { buildTrelloPopupUrl } from './utils/trello';
 import { crossBrowser } from './utils/browser';
 
-crossBrowser.runtime.onMessage.addListener(async request => {
+browser.runtime.onMessage.addListener(async (request: any) => {
 	switch (request.action) {
 		case 'openTrelloPopupMessage':
 			openTrelloPopupMessage(request);
@@ -28,7 +28,7 @@ async function openTrelloPopupMessage(messageData: MessageData) {
 		userString: messageData.userString,
 	});
 	const url = await buildTrelloPopupUrl(messageData.subject, searchUrl);
-	crossBrowser.windows.create({ url, type: 'popup', width: 500, height: 400 });
+	browser.windows.create({ url, type: 'popup', width: 500, height: 400 });
 }
 
 async function openTrelloPopupReminder({ subject, userString }: MessageData) {
@@ -37,5 +37,5 @@ async function openTrelloPopupReminder({ subject, userString }: MessageData) {
 		userString,
 	});
 	const url = await buildTrelloPopupUrl(subject, searchUrl);
-	crossBrowser.windows.create({ url, type: 'popup', width: 500, height: 400 });
+	browser.windows.create({ url, type: 'popup', width: 500, height: 400 });
 }

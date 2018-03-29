@@ -19,12 +19,12 @@
 	"content_scripts": [
 		{
 			"matches": ["https://inbox.google.com/*"],
-			"js": ["js/content_script.js"]
+			"js": ["js/browser-polyfill.min.js","js/content_script.js"]
 		}
 	],
 
 	"background": {
-		"scripts": ["js/background.js"]
+		"scripts": ["js/browser-polyfill.min.js","js/background.js"]
 	},
 
 	"options_ui": {
@@ -32,7 +32,7 @@
 		"chrome_style": true
 	},
 
-	"permissions": ["storage", "tabs"],
+	"permissions": ["storage", "tabs", "https://inbox.google.com/*"],
 
 	"web_accessible_resources": [
 		"trello-btn-icon-black-24dp.png",

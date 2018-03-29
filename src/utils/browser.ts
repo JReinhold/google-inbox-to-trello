@@ -1,10 +1,10 @@
 import ChromePromise from 'chrome-promise';
 import _ = require('lodash');
 
-export const crossBrowser: typeof chrome & typeof browser = (function() {
-	// if we have window.browser, just return that, as that is default
-	if (window.browser) {
-		return window.browser;
+export const crossBrowser: typeof browser = (function() {
+	// if we have browser, just return that, as that is default
+	if (browser) {
+		return browser;
 	}
 
 	//promisify chrome apis
@@ -27,7 +27,7 @@ export const crossBrowser: typeof chrome & typeof browser = (function() {
 	//mutates chromePromisified object
 	_.merge(chromePromisified, apiOverrides);
 
-	return chromePromisified;
+	return chromePromisified as any; //remove typing here, uses global browser type instead
 })();
 
 type MessageCallback = (

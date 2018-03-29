@@ -25,7 +25,7 @@ export function trelloClickHandler(event: Event) {
 	const action = contentType === 'reminder' ? 'openTrelloPopupReminder' : 'openTrelloPopupMessage';
 
 	//make everything happen in the background process
-	crossBrowser.runtime.sendMessage({
+	browser.runtime.sendMessage({
 		action,
 		permMsgId,
 		userString,
@@ -49,10 +49,15 @@ export async function buildTrelloPopupUrl(title?: string, attachment?: string) {
 	const titlePart = title ? '&name=' + encodeURIComponent(title) : '';
 	const linkPart = attachment ? '&url=' + encodeURIComponent(attachment) : '';
 
-	const { defaultBoard, defaultList } = await crossBrowser.storage.sync.get([
-		'defaultBoard',
-		'defaultList',
-	]);
+	try {
+		const { defaultBoard, defaultList } = await browser.storage.sync.get([
+			'defaultBoard',
+			'defaultList',
+		]);
+	} catch (err) {
+		//Firefox throws an exception if we use the storage API with a temporary extension id
+		//In development, we have a temporary extension id, so that exception is squashed here
+	}
 
 	const boardPart = defaultBoard ? '&idBoard=' + defaultBoard : '';
 	const listPart = defaultList ? '&idList=' + defaultList : '';

@@ -7,7 +7,7 @@ function saveOptions(e: Event) {
 	const defaultBoard = (<HTMLInputElement>document.querySelector('#defaultBoard')).value;
 	const defaultList = (<HTMLInputElement>document.querySelector('#defaultList')).value;
 
-	crossBrowser.storage.sync.set({
+	browser.storage.sync.set({
 		defaultBoard,
 		defaultList,
 	});
@@ -20,7 +20,7 @@ async function restoreOptionsToView() {
 		(<HTMLInputElement>document.querySelector('#defaultList')).value = result.defaultList || '';
 	}
 
-	const options = await crossBrowser.storage.sync.get();
+	const options = await browser.storage.sync.get();
 	setCurrentOptions(options);
 }
 
