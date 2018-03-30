@@ -2,6 +2,8 @@
 build/
 src/secrets.ts
 **/*.zip
+web-ext-artifacts/
+.env
 
 # Created by https://www.gitignore.io/api/node,macos,windows,visualstudiocode
 

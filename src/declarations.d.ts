@@ -1,5 +1,4 @@
 declare module 'arrive';
-declare function require(name: string): Function;
 
 interface Window {
 	BT_EmbeddedAppData: any;

@@ -7,11 +7,6 @@ import { getMessageDetails, getUserString } from './inbox';
 let defaultBoard: string | undefined;
 let defaultList: string | undefined;
 
-chrome.storage.sync.get(items => {
-	defaultBoard = items.defaultBoard;
-	defaultList = items.defaultList;
-});
-
 /**
  * Function to handle clicks on the Trello action button
  * Extracts info from the DOM, and sends a message to the background process, telling it to open a popup
@@ -29,7 +24,7 @@ export function trelloClickHandler(event: Event) {
 	const action = contentType === 'reminder' ? 'openTrelloPopupReminder' : 'openTrelloPopupMessage';
 
 	//make everything happen in the background process
-	chrome.runtime.sendMessage({
+	browser.runtime.sendMessage({
 		action,
 		permMsgId,
 		userString,
@@ -47,11 +42,23 @@ export function trelloClickHandler(event: Event) {
  * @param description description of the Trello card
  * @param attachment attachment to add to Trello card
  */
-export function buildTrelloPopupUrl(title?: string, attachment?: string) {
+export async function buildTrelloPopupUrl(title?: string, attachment?: string) {
 	const baseUrl = 'https://trello.com/add-card?';
 	const baseParams = '&mode=popup&source=inbox.google.com';
 	const titlePart = title ? '&name=' + encodeURIComponent(title) : '';
 	const linkPart = attachment ? '&url=' + encodeURIComponent(attachment) : '';
+
+	let defaultBoard, defaultList;
+	try {
+		({ defaultBoard, defaultList } = await browser.storage.sync.get([
+			'defaultBoard',
+			'defaultList',
+		]));
+	} catch (err) {
+		//Firefox throws an exception if we use the storage API with a temporary extension id
+		//In development, we have a temporary extension id, so that exception is squashed here
+	}
+
 	const boardPart = defaultBoard ? '&idBoard=' + defaultBoard : '';
 	const listPart = defaultList ? '&idList=' + defaultList : '';
 
