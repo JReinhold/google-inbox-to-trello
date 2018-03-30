@@ -15,10 +15,6 @@
 		"noImplicitAny": true,
 		"typeRoots": ["node_modules/@types", "node_modules/web-ext-types"]
 	},
-	"include": [
-		"./src/**/*"
-	],
-	"exclude": [
-		"node_modules",
-	]
+	"include": ["./src/**/*"],
+	"exclude": ["node_modules"]
 }
