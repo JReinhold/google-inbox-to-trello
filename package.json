@@ -1,6 +1,6 @@
 {
 	"name": "webextension-google-inbox-to-trello",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "WebExtension to create Trello cards from mails in Google Inbox",
 	"scripts": {
 		"clean-build": "rm -rf ./build/* && mkdir -p ./build",
