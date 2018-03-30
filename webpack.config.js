@@ -3,6 +3,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+	devtool: 'source-map',
 	entry: {
 		content_script: path.join(__dirname, 'src/content_script.ts'),
 		options: path.join(__dirname, 'src/options/index.ts'),
@@ -27,6 +28,7 @@ module.exports = {
 	},
 	plugins: [
 		new CopyWebpackPlugin([
+			{ from: 'manifest.json' },
 			{ from: 'assets/' },
 			{ from: 'src/options/index.html', to: 'options.html' },
 		]),

@@ -7,7 +7,10 @@ import {
 } from './utils/inbox';
 import { buildTrelloPopupUrl } from './utils/trello';
 
-chrome.runtime.onMessage.addListener(async request => {
+/**
+ * Listen for messages sent by the content script
+ */
+browser.runtime.onMessage.addListener(async (request: any) => {
 	switch (request.action) {
 		case 'openTrelloPopupMessage':
 			openTrelloPopupMessage(request);
@@ -20,21 +23,27 @@ chrome.runtime.onMessage.addListener(async request => {
 	}
 });
 
+/**
+ * opens a Trello pop up when a message has been clicked
+ */
 async function openTrelloPopupMessage(messageData: MessageData) {
 	const messageIdMaps = await getMessageRfcIds(messageData);
 	const searchUrl = buildInboxMessageSearchUrl({
 		rfcId: messageIdMaps.threadIdMap.rfcId,
 		userString: messageData.userString,
 	});
-	const url = buildTrelloPopupUrl(messageData.subject, searchUrl);
-	chrome.windows.create({ url, type: 'popup', width: 500, height: 400 });
+	const url = await buildTrelloPopupUrl(messageData.subject, searchUrl);
+	browser.windows.create({ url, type: 'popup', width: 500, height: 400 });
 }
 
-function openTrelloPopupReminder({ subject, userString }: MessageData) {
+/**
+ * opens a Trello pop up when a reminder has been clicked
+ */
+async function openTrelloPopupReminder({ subject, userString }: MessageData) {
 	const searchUrl = buildInboxReminderSearchUrl({
 		subject,
 		userString,
 	});
-	const url = buildTrelloPopupUrl(subject, searchUrl);
-	chrome.windows.create({ url, type: 'popup', width: 500, height: 400 });
+	const url = await buildTrelloPopupUrl(subject, searchUrl);
+	browser.windows.create({ url, type: 'popup', width: 500, height: 400 });
 }

@@ -1,9 +1,7 @@
 // utility functions for Google Inbox specific features
 import axios from 'axios';
-import ChromePromise from 'chrome-promise';
 import { getTextContent } from './dom';
 import { getStringBetween } from './index';
-const chromeP = new ChromePromise();
 
 export function getUserString() {
 	// if multiple accounts logged in, get current user number from URL, it is just after the /u/ part
@@ -31,9 +29,11 @@ export function buildInboxReminderSearchUrl({ subject, userString }: ReminderSea
 	return baseUrl + searchOptions;
 }
 
-// parse the resonse from inbox sync from random arrays into
-// maps between permanent message ids to rfc822 message ids
-// ie. map ids we can read from the DOM to ids we can search for
+/**
+ * parse the resonse from inbox.com/sync from random arrays
+ * into maps between permanent message ids to rfc822 message ids
+ * ie. map ids we can read from the DOM to ids we can search for in the search field
+ */
 export function parseInboxSyncResponse(responseData: InboxSyncResponseData) {
 	const messagesArray = responseData[2][0][3];
 	const messageIdMap: MessageIdMap[] = messagesArray.map((message: InboxSyncResponseMessage) => {
